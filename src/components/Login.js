@@ -1,31 +1,80 @@
 // Importing React classes and functions from node modules
 import React, { useState } from "react";
+import { verifyUser } from "../data/repository";
 
 // Functional Component for Login Page
-function Login() {
+function Login(props) {
+
+    const [fields, setFields] = useState({ username: "", password: "" });
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    // Generic change handler.
+    const handleInputChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        // Copy fields.
+        const temp = { username: fields.username, password: fields.password };
+        // OR use spread operator.
+        // const temp = { ...fields };
+
+        // Update field and state.
+        temp[name] = value;
+        setFields(temp);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const verified = verifyUser(fields.username, fields.password);
+
+        // If verified login the user.
+        if (verified === true) {
+            props.loginUser(fields.username);
+
+            // Navigate to the home page.
+            props.history.push("/");
+            return;
+        }
+
+        // Reset password field to blank.
+        const temp = { ...fields };
+        temp.password = "";
+        setFields(temp);
+
+        // Set error message.
+        setErrorMessage("Username and / or password invalid, please try again.");
+    }
 
     // Returns HTML elements and content to display on the pages
     return (
+
+        // Code adapted from Official Bootstrap Documents:
+        // https://getbootstrap.com/docs/4.0/components/forms/
 
         // Login Form Code
         <div>
             <h1 className="text-center mb-3" style={{ padding: "50px 20px 0 20px" }}>Sign In</h1>
             <hr style={{ width: "50%", marginBottom: "20px", borderWidth: "1px", backgroundColor: "#5dc7d8" }} />
             <p>&nbsp;</p>
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" className="form-control" id="email" name="email" placeholder="Please enter your email" />
+                    <input type="email" className="form-control" id="email" name="email" placeholder="Please enter your email" value={fields.username} onChange={handleInputChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" className="form-control" id="password" name="password" placeholder="Please enter your Password" />
+                    <input type="password" className="form-control" id="password" name="password" placeholder="Please enter your Password" value={fields.password} onChange={handleInputChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
-                <p>&nbsp;</p>
-                <h3 id="Success" style={{visibility: "hidden"}}>.</h3>
-            </form>
 
+                {errorMessage !== null &&
+                    <div className="form-group">
+                        <span className="text-danger">{errorMessage}</span>
+                    </div>
+                }
+
+            </form>
         </div>
     );
 }

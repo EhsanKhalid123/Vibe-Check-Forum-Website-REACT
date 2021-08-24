@@ -2,17 +2,17 @@
 import React from "react";
 
 // Functional Component for Navigation Bar
-function Navigation() {
+function Navigation(props) {
 
   // Returns HTML code from this function which is displayed by importing on other pages
   return (
     // Navigation bar Code adapted from Official Bootstrap Documents, I made changes to it
     // https://getbootstrap.com/docs/4.0/components/navbar/
 
+    // Navbar Code using normal HTML elements
     <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#f0f0f0" }}>
       <div className="container">
         <a className="navbar-brand" href="/">
-          {/* Favicon IMAGE REFERENCE: Image was taken from free icon providers https://www.flaticon.com/ */}
           <img className="navbar-brand" src={'assets/images/Vibe Check - Navbar.png'} width="150px" alt="Icon for Vibe Check" />
           {/* <img className="navbar-brand" src={process.env.PUBLIC_URL + '/favicon.png'} width="50px" /> */}
         </a>
@@ -24,9 +24,35 @@ function Navigation() {
             <li className="nav-item active">
               <a className="nav-link" href="/Home">Home</a>
             </li>
+            {props.username !== null &&
+              <>
+                <li className="nav-item">
+                  <a className="nav-link" href="/MyProfile">My Profile</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/forum">Forum</a>
+                </li>
+              </>
+            }
             {/* <li class="nav-item">
               <a class="nav-link" href="#">My Profile</a>
             </li> */}
+          </ul>
+          <ul className="navbar-nav">
+            {props.username === null ?
+              <li className="nav-item">
+                <a className="nav-link" href="/Sign-in">Login</a>
+              </li>
+              :
+              <>
+                <li className="nav-item">
+                  <span className="nav-link text-light">Welcome, {props.username}</span>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/Sign-in" onClick={props.logoutUser}>Logout</a>
+                </li>
+              </>
+            }
           </ul>
           <div className="form-inline my-2 my-lg-0">
             <a href="/Sign-up">
