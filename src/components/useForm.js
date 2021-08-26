@@ -3,9 +3,15 @@
 // Importing React classes and functions from node modules
 import { useState, useEffect } from 'react';
 
+const USERS_KEY = "users";
+
 // useState Hooks are being declared and used here
 const useForm = (callback, validate) => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -14,6 +20,20 @@ const useForm = (callback, validate) => {
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       setValues(values => ({ ...values, success: "Successfully Signed Up, Use the Sign In tab to Login!" }));
+
+      // Stop if data is already initialised.
+      if (localStorage.getItem(USERS_KEY) !== null)
+        return;
+
+      // User data is hard-coded, passwords are in plain-text.
+      const users = [{ ...values }];
+
+      users.push(values); 
+      users[values.username] = users
+
+      // Set data into local storage.
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+
       callback();
     }
   }, [errors, isSubmitting]);

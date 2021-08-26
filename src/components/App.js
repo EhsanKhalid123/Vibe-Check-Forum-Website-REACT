@@ -9,12 +9,11 @@ import Home from './Home';
 import Footer from './Footer';
 import Signup from './Sign-up';
 import Login from './Login';
-import MyProfile from './MyProfile';
+import MyProfile from "./MyProfile";
 import { getUser, removeUser } from "../data/repository";
 
 // Functional Component for App
 function App() {
-
   const [username, setUsername] = useState(getUser());
 
   const loginUser = (username) => {

@@ -4,7 +4,7 @@ import logo from "../logo.png";
 
 
 // Functional Component for the Home page
-function Home() {
+function Home(props) {
 
     // Returns HTML elements to display content on pages
     return (
@@ -13,7 +13,7 @@ function Home() {
         <div className="text-center">
             <p>&nbsp;</p>
             <h1 className="home-welcome display-4">Welcome to Vibe Check</h1>
-            {/* If Logged in Username */}
+            {props.username !== null && <h4 style={{margin: "0px 10px 10px 10px"}}><strong>Hello {props.username}!</strong></h4>}
             <img src={logo} className="home-logo-image" alt="logo" />
             <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
             <hr style={{ width: "90%", borderWidth: "1px", backgroundColor: "#5dc7d8" }} />

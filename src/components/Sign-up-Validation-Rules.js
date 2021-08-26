@@ -6,7 +6,7 @@ function validate(values) {
   let errors = {};
 
   // If statement for is name field is empty then display error
-  if (!values.name) {
+  if (!values.username) {
     errors.name = 'Name is required!'
   }
 

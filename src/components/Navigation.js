@@ -34,34 +34,30 @@ function Navigation(props) {
                 </li>
               </>
             }
-            {/* <li class="nav-item">
-              <a class="nav-link" href="#">My Profile</a>
-            </li> */}
           </ul>
           <ul className="navbar-nav">
             {props.username === null ?
-              <li className="nav-item">
-                <a className="nav-link" href="/Sign-in">Login</a>
-              </li>
+              <div className="form-inline my-2 my-lg-0">
+                <a href="/Sign-up">
+                  <button className="btn btn-outline-success mr-sm-2" type="submit">Sign-up</button>
+                </a>
+                <a href="/Sign-in">
+                  <button className="btn btn-warning my-2 my-sm-0" type="submit">Sign-in</button>
+                </a>
+              </div>
               :
               <>
                 <li className="nav-item">
-                  <span className="nav-link text-light">Welcome, {props.username}</span>
+                  <span className="nav-link" style={{color: "Black"}}>Welcome, {props.username}</span>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Sign-in" onClick={props.logoutUser}>Logout</a>
-                </li>
+                <div className="form-inline my-2 my-lg-0">
+                  <a href="/Sign-in" onClick={props.logoutUser}>
+                    <button className="btn btn-warning my-2 my-sm-0" type="submit">Logout</button>
+                  </a>
+                </div>
               </>
             }
           </ul>
-          <div className="form-inline my-2 my-lg-0">
-            <a href="/Sign-up">
-              <button className="btn btn-outline-success mr-sm-2" type="submit">Sign-up</button>
-            </a>
-            <a href="/Sign-in">
-              <button className="btn btn-warning my-2 my-sm-0" type="submit">Sign-in</button>
-            </a>
-          </div>
         </div>
       </div>
     </nav>

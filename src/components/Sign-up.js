@@ -36,7 +36,7 @@ function Sign_up() {
             <form className="sign-up-form" onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
                     <label htmlFor="name"><b>Name:</b></label>
-                    <input type="text" className="form-control" id="name" name="name" placeholder="Please enter your name" onChange={handleChange} value={values.name || ''} required />
+                    <input type="text" className="form-control" id="username" name="username" placeholder="Please enter your name" onChange={handleChange} value={values.username || ''} required />
                     {errors.name && (
                         <p style={{ color: "red", textAlign: "center", fontSize: "18px", margin: "10px 10px 10px 10px" }}>{errors.name}</p>
                     )}
