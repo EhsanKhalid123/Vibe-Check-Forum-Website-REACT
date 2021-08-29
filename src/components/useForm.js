@@ -20,6 +20,7 @@ var date = new Date(),
 
 // useState Hooks are being declared and used here
 const useForm = (callback, validate) => {
+  const [increment, setIncrement] = useState([]);
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,20 +29,23 @@ const useForm = (callback, validate) => {
   // If no errors and isSubmitting value is set to true then form is successfully submitted
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      setValues(values => ({ ...values, currentDateTime, success: "Successfully Signed Up, Use the Sign In tab to Login!" }));
-
+      setValues(values => ({...values, success: "Successfully Signed Up, Use the Sign In tab to Login!" }));
+      
+      
       // User data is hard-coded, passwords are in plain-text.
       const users = [{ ...values, currentDateTime }];
 
       // users.push(values); 
       // users[values.username] = users
 
-      // Remove Data if already added
-      if (localStorage.getItem(USERS_KEY) !== null)
-        localStorage.removeItem(USERS_KEY, JSON.stringify(users));
-
-      // Set data into local storage.
-      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      // Increment Data, Add more users if already existing
+      if (localStorage.getItem(USERS_KEY) !== null) {
+        localStorage.setItem(USERS_KEY + increment, JSON.stringify(users));
+        setIncrement(increment + 1);
+      }
+      else
+        // Set data into local storage.
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
 
       callback();
 

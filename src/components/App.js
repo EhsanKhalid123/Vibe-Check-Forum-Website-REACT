@@ -10,7 +10,6 @@ import Footer from './Footer';
 import Signup from './Sign-up';
 import Login from './Login';
 import MyProfile from "./MyProfile";
-import EditProfile from './EditProfile';
 import { getUser, removeUser, getEmail, removeEmail, getDateJoined, removeDateJoined } from "../data/repository";
 
 // Functional Component for App
@@ -51,11 +50,6 @@ function App() {
           {username !== null, email !== null &&
             <Route path="/MyProfile">
               <MyProfile username={username} email={email} DateJoined={DateJoined} logoutUser={logoutUser} />
-            </Route>
-          }
-          {username !== null, email !== null &&
-            <Route path="/EditProfile">
-              <EditProfile />
             </Route>
           }
           <Route path={["/Home", "/"]}>
