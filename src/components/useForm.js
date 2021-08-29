@@ -5,13 +5,22 @@ import { useState, useEffect } from 'react';
 
 const USERS_KEY = "users";
 
+//https://hdtuto.com/article/react-js-get-current-date-and-time-example
+// const currentDateTime = Date().toLocaleString();
+
+// https://techfunda.com/howto/823/get-day-name-of-date
+var days = new Array(7);
+var month = new Array(12);
+month[0] = "Jan"; month[1] = "Feb"; month[2] = "Mar"; month[3] = "Apr"; month[4] = "May"; month[5] = "Jun";
+month[6] = "Jul"; month[7] = "Aug"; month[8] = "Sep"; month[9] = "Oct"; month[10] = "Nov"; month[11] = "Dec";
+days[0] = "Sun"; days[1] = "Mon"; days[2] = "Tue"; days[3] = "Wed"; days[4] = "Thu"; days[5] = "Fri"; days[6] = "Sat";
+
+var date = new Date(),
+  currentDateTime = days[date.getDay()] + " " + month[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear();
+
 // useState Hooks are being declared and used here
 const useForm = (callback, validate) => {
-  const [values, setValues] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
+  const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -19,22 +28,27 @@ const useForm = (callback, validate) => {
   // If no errors and isSubmitting value is set to true then form is successfully submitted
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      setValues(values => ({ ...values, success: "Successfully Signed Up, Use the Sign In tab to Login!" }));
-
-      // Stop if data is already initialised.
-      if (localStorage.getItem(USERS_KEY) !== null)
-        return;
+      setValues(values => ({ ...values, currentDateTime, success: "Successfully Signed Up, Use the Sign In tab to Login!" }));
 
       // User data is hard-coded, passwords are in plain-text.
-      const users = [{ ...values }];
+      const users = [{ ...values, currentDateTime }];
 
-      users.push(values); 
-      users[values.username] = users
+      // users.push(values); 
+      // users[values.username] = users
+
+      // Remove Data if already added
+      if (localStorage.getItem(USERS_KEY) !== null)
+        localStorage.removeItem(USERS_KEY, JSON.stringify(users));
 
       // Set data into local storage.
       localStorage.setItem(USERS_KEY, JSON.stringify(users));
 
       callback();
+
+      values.username = null;
+      values.email = null;
+      values.password = null;
+
     }
   }, [errors, isSubmitting]);
 

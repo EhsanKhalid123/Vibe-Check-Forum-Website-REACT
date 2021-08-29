@@ -10,19 +10,28 @@ import Footer from './Footer';
 import Signup from './Sign-up';
 import Login from './Login';
 import MyProfile from "./MyProfile";
-import { getUser, removeUser } from "../data/repository";
+import EditProfile from './EditProfile';
+import { getUser, removeUser, getEmail, removeEmail, getDateJoined, removeDateJoined } from "../data/repository";
 
 // Functional Component for App
 function App() {
   const [username, setUsername] = useState(getUser());
+  const [email, setEmail] = useState(getEmail());
+  const [DateJoined, setDateJoined] = useState(getDateJoined());
 
-  const loginUser = (username) => {
+  const loginUser = (username, email, DateJoined) => {
     setUsername(username);
+    setEmail(email);
+    setDateJoined(DateJoined);
   }
 
   const logoutUser = () => {
     removeUser();
+    removeEmail();
+    removeDateJoined();
     setUsername(null);
+    setEmail(null);
+    setDateJoined(null);
   }
 
   // Returning all the imported components for displaying on the page
@@ -39,9 +48,16 @@ function App() {
           <Route path="/Sign-in" render={props => (
             <Login {...props} loginUser={loginUser} />
           )} />
-          <Route path="/MyProfile">
-            <MyProfile username={username} />
-          </Route>
+          {username !== null, email !== null &&
+            <Route path="/MyProfile">
+              <MyProfile username={username} email={email} DateJoined={DateJoined} logoutUser={logoutUser} />
+            </Route>
+          }
+          {username !== null, email !== null &&
+            <Route path="/EditProfile">
+              <EditProfile />
+            </Route>
+          }
           <Route path={["/Home", "/"]}>
             <Home username={username} />
           </Route>

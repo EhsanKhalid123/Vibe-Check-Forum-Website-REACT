@@ -1,6 +1,6 @@
 // Importing React classes and functions from node modules
 import React, { useState } from "react";
-import { getUser, verifyUser } from "../data/repository";
+import { getUser, verifyUser, getEmail, getDateJoined } from "../data/repository";
 
 // Functional Component for Login Page
 function Login(props) {
@@ -32,10 +32,10 @@ function Login(props) {
   
       // If verified login the user.
       if(verified === true) {
-        props.loginUser(getUser());
+        props.loginUser(getUser(), getEmail(), getDateJoined());
   
         // Navigate to the home page.
-        props.history.push("/");
+        props.history.push("/MyProfile");
         return;
       }
   
