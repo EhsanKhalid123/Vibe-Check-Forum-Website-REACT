@@ -5,6 +5,7 @@ const USERS_KEY = "users";
 const USER_KEY = "user";
 const EMAIL_KEY = "email";
 const DATE_JOINED_KEY = "Date Joined";
+const PASSWORD_KEY = "Password";
 
 // Initialise local storage "users" with data, if the data is already set this function returns immediately.
 function initUsers() {
@@ -37,6 +38,7 @@ function verifyUser(email, password) {
       setUser(user.username);
       setEmail(user.email);
       setDateJoined(user.currentDateTime);
+      setPassword(user.password);
       return true;
     }
   }
@@ -50,6 +52,10 @@ function setUser(username) {
 
 function setEmail(email){
   localStorage.setItem(EMAIL_KEY, email);
+}
+
+function setPassword(Password){
+  localStorage.setItem(PASSWORD_KEY, Password);
 }
 
 function removeEmail(){
@@ -72,6 +78,10 @@ function getEmail() {
   return localStorage.getItem(EMAIL_KEY);
 }
 
+function getPassword(){
+  return localStorage.getItem(PASSWORD_KEY);
+}
+
 function getDateJoined() {
   return localStorage.getItem(DATE_JOINED_KEY);
 }
@@ -80,8 +90,20 @@ function removeUser() {
   localStorage.removeItem(USER_KEY);
 }
 
+function removePassword() {
+  localStorage.removeItem(PASSWORD_KEY);
+}
+
 function deleteAccount() {
   localStorage.removeItem(USERS_KEY);
+}
+
+function UpdateUsers(email) {
+  const user = getUsers();
+
+  email[user.email] = user;
+
+  setEmail(email);
 }
 
 export {
@@ -94,4 +116,7 @@ export {
   getDateJoined,
   removeDateJoined,
   deleteAccount,
+  getPassword,
+  removePassword,
+  UpdateUsers
 }
