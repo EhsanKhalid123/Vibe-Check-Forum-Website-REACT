@@ -4,7 +4,7 @@ import EditForm from "./EditForm";
 import validate1 from './EditProfile-Validation-Rules';
 
 // Functional Component for Signup Page
-function EditProfile() {
+function EditProfile(props) {
 
     // Declared constants to get from EditForm page as EditForm page returns these functions
     // Code taken from Lab Examples of Week 4 Activity 1
@@ -13,7 +13,7 @@ function EditProfile() {
         errors,
         handleChange,
         handleSubmit,
-    } = EditForm(signUpSuccessfull, validate1);
+    } = EditForm(signUpSuccessfull, validate1, props);
 
 
     // Function for when successfull passed validations, display message
@@ -32,7 +32,7 @@ function EditProfile() {
         <div>
             <h1 className="text-center mb-3" style={{ padding: "50px 20px 0 20px" }}>Edit Your Profile Details</h1>
             <hr style={{ width: "50%", marginBottom: "20px", borderWidth: "1px", backgroundColor: "#5dc7d8" }} />
-            <p style={{textAlign: "center", fontSize: "20px"}}><b style={{color: "red"}}>Note:</b> Same details must be entered if you don't want certain details to change!</p>
+            <p style={{ textAlign: "center", fontSize: "20px" }}><b style={{ color: "red" }}>Note:</b> Same details must be entered if you don't want certain details to change!</p>
             <p>&nbsp;</p>
             <form className="sign-up-form" onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
@@ -57,8 +57,10 @@ function EditProfile() {
                         <p style={{ color: "red", textAlign: "center", fontSize: "18px", margin: "10px 10px 10px 10px" }}>{errors.password}</p>
                     )}
                 </div>
-                <button type="submit" className="btn btn-danger" style={{margin: "10px", textAlign: "center"}}>Cancel</button>
-                <button type="submit" className="btn btn-primary"style={{margin: "10px", textAlign: "center"}}>Save</button>
+                <a href="/MyProfile">
+                    <button type="button" className="btn btn-danger" style={{ margin: "10px", textAlign: "center" }}>Cancel</button>
+                </a>
+                <button type="submit" className="btn btn-primary" style={{ margin: "10px", textAlign: "center" }}>Save</button>
                 {values.success && (
                     <h3 style={{ color: "green", textAlign: "center", fontSize: "25px", margin: "50px 10px 10px 10px" }} onChange={handleChange} >{values.success}</h3>
                 )}

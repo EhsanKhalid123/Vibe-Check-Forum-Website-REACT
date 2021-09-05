@@ -2,7 +2,7 @@
 
 // Importing React classes and functions from node modules
 import { useState, useEffect } from 'react';
-import { getDateJoined } from '../data/repository';
+import { getDateJoined, getEmail, getPassword, getUser } from '../data/repository';
 
 const USERS_KEY = "users";
 const USER_KEY = "user";
@@ -12,7 +12,7 @@ const PASSWORD_KEY = "Password";
 var currentDateTime = getDateJoined();
 
 // useState Hooks are being declared and used here
-const EditForm = (callback, validate1) => {
+const EditForm = (callback, validate1, props) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,6 +34,11 @@ const EditForm = (callback, validate1) => {
       
       callback();
 
+      props.loginUser(getUser(), getEmail(), getDateJoined(), getPassword());
+  
+      // Refresh the Page.
+      props.history.push("/EditProfile");
+      
       values.username = null;
       values.email = null;
       values.password = null;

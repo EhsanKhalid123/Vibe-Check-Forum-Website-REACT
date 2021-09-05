@@ -99,6 +99,11 @@ html {
   padding: 0 20px 5% 20px;
 }
 
+.posts{
+  width: 50%;
+  margin: auto;
+}
+
 @media screen and (max-width: 1024px) {
   .sign-up-form {
     text-align: center;
@@ -153,6 +158,11 @@ html {
     padding: 0 20px 5% 20px;
   }
 
+  .posts{
+    width: 90%;
+    margin: auto;
+  }
+
 }
 
 @media screen and (max-width: 330px) {
@@ -168,6 +178,13 @@ html {
     margin: auto;
     width: 100%;
     padding: 0 20px 5% 20px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .posts{
+    width: 100%;
+    margin: auto;
   }
 }
 

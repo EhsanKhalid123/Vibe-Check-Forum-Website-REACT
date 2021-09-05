@@ -1,6 +1,7 @@
-// Importing React classes and functions from node modules
+// Importing React classes and functions from node modules & from components
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { getUser, removeUser, getEmail, removeEmail, getDateJoined, removeDateJoined, getPassword, removePassword, getPosts, getPosts2, getPosts3 } from "../data/repository";
 
 // Importing the components
 import Navigation from './Navigation';
@@ -11,7 +12,8 @@ import Signup from './Sign-up';
 import Login from './Login';
 import MyProfile from "./MyProfile";
 import EditProfile from './EditProfile';
-import { getUser, removeUser, getEmail, removeEmail, getDateJoined, removeDateJoined, getPassword, removePassword } from "../data/repository";
+import Forum from './Forum';
+
 
 // Functional Component for App
 function App() {
@@ -19,7 +21,11 @@ function App() {
   const [email, setEmail] = useState(getEmail());
   const [DateJoined, setDateJoined] = useState(getDateJoined());
   const [password, setPassword] = useState(getPassword());
+  const [posts, setPosts] = useState(getPosts());
+  const [posts2, setPosts2] = useState(getPosts2());
+  const [posts3, setPosts3] = useState(getPosts3());
 
+  // useState Hook Functions for Props
   const loginUser = (username, email, DateJoined, password) => {
     setUsername(username);
     setEmail(email);
@@ -53,8 +59,13 @@ function App() {
             <Login {...props} loginUser={loginUser} />
           )} />
           {username !== null, email !== null &&
-            <Route path="/EditProfile">
-              <EditProfile username={username} email={email} DateJoined={DateJoined} logoutUser={logoutUser} />
+            <Route path="/EditProfile" render={props => (
+              <EditProfile {...props} loginUser={loginUser} logoutUser={logoutUser} />
+            )} />
+          }
+          {username !== null, email !== null &&
+            <Route path="/Forum">
+              <Forum posts={posts} posts2={posts2} posts3={posts3} logoutUser={logoutUser} />
             </Route>
           }
           {username !== null, email !== null &&

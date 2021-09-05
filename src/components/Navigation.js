@@ -21,7 +21,7 @@ function Navigation(props) {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li className="nav-item">
               <a className="nav-link" href="/Home">Home</a>
             </li>
             {props.username !== null &&
@@ -30,7 +30,7 @@ function Navigation(props) {
                   <a className="nav-link" href="/MyProfile">My Profile</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/forum">Forum</a>
+                  <a className="nav-link" href="/Forum">Forum</a>
                 </li>
               </>
             }

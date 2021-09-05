@@ -1,18 +1,20 @@
 // Importing React classes and functions from node modules
 import React, { useState } from "react";
-import { deleteAccount, getUser, getEmail, getDateJoined } from "../data/repository";
+import { deleteAccount, removePost} from "../data/repository";
 
 // Functional Component for MyProfile
 function MyProfile(props) {
 
     const [confirmPopup, setconfirmPopup] = useState(false);
 
+    // Popup Toggle Switch Function
     const togglePopup = () => {
         setconfirmPopup(!confirmPopup);
     }
 
     const deleteProfile = (event) => {
         deleteAccount();
+        removePost();
         togglePopup();
         
         // Navigate to the home page.
@@ -35,7 +37,7 @@ function MyProfile(props) {
                         <h5 className="card-header card text-white bg-info">Profile Info</h5>
                         {/* IMAGE REFERENCE: Icon is taken from google fonts who provide free icons */}
                         {/* https://fonts.google.com/icons?selected=Material+Icons:home&icon.query=profile */}
-                        <img className="" src={process.env.PUBLIC_URL + 'assets/images/baseline_account_circle_black_24dp.png'} style={{ width: "20%", margin: "20px auto 0 auto" }} alt="Card image cap" />
+                        <img className="" src={process.env.PUBLIC_URL + 'assets/images/baseline_account_circle_black_24dp.png'} style={{ width: "20%", margin: "20px auto 0 auto" }} alt="Account Picture" />
                         <div className="card-body">
                             <h5 className="card-title">{props.username}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">{props.email}</h6>

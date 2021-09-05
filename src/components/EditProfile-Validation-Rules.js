@@ -1,11 +1,5 @@
 // REFERENCE: The following code was adapted from Week 4 Activity 1 from Lab Examples
 
-import { getUser, getEmail, getPassword, getDateJoined } from "../data/repository";
-const USER_KEY = "user";
-const USERS_KEY = "users";
-const EMAIL_KEY = "email";
-const PASSWORD_KEY = "Password";
-const currentDateTime = getDateJoined();
 // Functional Component for Validation Rules
 function validate1(values) {
   // Array of Errors
